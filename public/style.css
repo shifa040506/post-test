@@ -361,3 +361,42 @@ tbody tr:last-child td {
         height: 260px;
     }
 }
+/* ---------- Header panel + tombol ekspor ---------- */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.panel-header .panel-title {
+    margin: 0;
+}
+
+.btn-export {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--primary), #34d399);
+    box-shadow: 0 6px 14px rgba(16, 185, 129, 0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button.btn-export {
+    border: none;
+    cursor: pointer;
+}
+
+button.btn-export:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}

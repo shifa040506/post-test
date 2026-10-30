@@ -36,6 +36,7 @@ app.get('/api/readings', (req, res) => {
   res.status(200).json(rows.reverse()); // urut lama -> baru untuk grafik
 });
 
+
 // GET statistik
 app.get('/api/stats', (req, res) => {
   const stats = db.prepare(`
@@ -44,6 +45,29 @@ app.get('/api/stats', (req, res) => {
     FROM readings
   `).get();
   res.status(200).json(stats);
+});
+
+// GET daftar device
+app.get('/api/devices', (req, res) => {
+  const rows = db.prepare('SELECT DISTINCT device_id FROM readings ORDER BY device_id').all();
+  res.status(200).json(rows.map(r => r.device_id));
+});
+
+// GET ekspor CSV (opsional ?device_id=GH-01)
+app.get('/api/export/csv', (req, res) => {
+  const { device_id } = req.query;
+  const rows = device_id
+    ? db.prepare('SELECT * FROM readings WHERE device_id = ? ORDER BY id ASC').all(device_id)
+    : db.prepare('SELECT * FROM readings ORDER BY id ASC').all();
+
+  const header = 'id,device_id,suhu,kelembapan,created_at';
+  const lines = rows.map(r =>
+    [r.id, r.device_id, r.suhu, r.kelembapan, r.created_at].join(',')
+  );
+
+  res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+  res.setHeader('Content-Disposition', 'attachment; filename="readings.csv"');
+  res.send([header, ...lines].join('\n'));
 });
 
 app.listen(3000, () => console.log('Server jalan di http://localhost:3000'));
