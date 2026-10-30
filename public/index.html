@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Monitoring IoT</title>
+    <!-- Menghubungkan ke file CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Memuat Chart.js dari CDN untuk grafik -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Monitoring Greenhouse</h1>
+
+        <div class="status-bar">
+            Status: <span id="device-status" class="offline">Offline</span> |
+            Terakhir update: <span id="last-update">-</span>
+        </div>
+
+        <div class="cards">
+            <!-- Kartu Suhu -->
+            <div class="card" id="card-suhu">
+                <h3>Suhu</h3>
+                <p class="value"><span id="suhu-val">0</span> °C</p>
+            </div>
+            <!-- Kartu Kelembapan -->
+            <div class="card" id="card-kelembapan">
+                <h3>Kelembapan</h3>
+                <p class="value"><span id="kelembapan-val">0</span> %</p>
+            </div>
+        </div>
+
+        <!-- Wadah Grafik -->
+        <div class="chart-container">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <!-- Tabel Riwayat Data -->
+        <div class="table-container">
+            <h3>Riwayat 10 Data Terakhir</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Waktu</th>
+                        <th>Device</th>
+                        <th>Suhu (°C)</th>
+                        <th>Kelembapan (%)</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Data tabel akan dimasukkan via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Menghubungkan ke file JavaScript -->
+    <script src="app.js"></script>
+</body>
+
+</html>
