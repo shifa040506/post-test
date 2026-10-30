@@ -1,102 +1,363 @@
 /* public/style.css */
+:root {
+    --primary: #10b981;
+    --primary-dark: #047857;
+    --temp: #f97316;
+    --hum: #0ea5e9;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', Arial, sans-serif;
     margin: 0;
-    padding: 20px;
-    background-color: #f4f4f9;
+    padding: 30px 20px;
+    color: var(--text);
+    min-height: 100vh;
+    background: linear-gradient(135deg, #d1fae5 0%, #e0f2fe 50%, #ede9fe 100%);
+    background-attachment: fixed;
 }
 
 .container {
-    max-width: 900px;
+    max-width: 950px;
     margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(16, 185, 129, 0.15);
+    animation: fadeUp 0.7s ease;
+}
+
+/* ---------- Header ---------- */
+.header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--primary), #34d399);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
 }
 
 h1 {
-    text-align: center;
-    color: #333;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--primary-dark), var(--hum));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
+.subtitle {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* ---------- Status bar ---------- */
 .status-bar {
+    width: fit-content;
+    margin: 20px auto 25px;
+    padding: 8px 20px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     text-align: center;
-    margin-bottom: 20px;
-    font-weight: bold;
+}
+
+.status-bar .divider {
+    color: var(--border);
+    margin: 0 6px;
+}
+
+#last-update {
+    font-weight: 600;
+}
+
+.online,
+.offline {
+    font-weight: 600;
+}
+
+.online::before,
+.offline::before {
+    content: '';
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-right: 6px;
 }
 
 .online {
-    color: green;
+    color: #059669;
+}
+
+.online::before {
+    background: #10b981;
+    animation: pulse 1.5s infinite;
 }
 
 .offline {
-    color: red;
+    color: #dc2626;
 }
 
-/* Grid untuk dua kartu nilai */
+.offline::before {
+    background: #ef4444;
+}
+
+/* ---------- Kartu ---------- */
 .cards {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .card {
-    flex: 1;
+    position: relative;
+    overflow: hidden;
     background: #fff;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 24px 20px;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ddd;
-    transition: background-color 0.3s;
+    border: 1px solid var(--border);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.4s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* garis warna di atas kartu */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+}
+
+.card-suhu::before {
+    background: linear-gradient(90deg, #fb923c, var(--temp));
+}
+
+.card-kelembapan::before {
+    background: linear-gradient(90deg, #38bdf8, var(--hum));
+}
+
+.card-icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    border-radius: 16px;
+    background: #f3f4f6;
+}
+
+.card-suhu .card-icon {
+    background: #ffedd5;
+}
+
+.card-kelembapan .card-icon {
+    background: #e0f2fe;
 }
 
 .card h3 {
     margin: 0;
-    color: #555;
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .card .value {
-    font-size: 2em;
-    font-weight: bold;
-    margin: 10px 0 0 0;
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin: 8px 0 0;
 }
 
-/* Warna Peringatan Suhu Panas */
+.card-suhu .value {
+    color: var(--temp);
+}
+
+.card-kelembapan .value {
+    color: var(--hum);
+}
+
+/* Warna kartu sesuai kondisi suhu (dipasang oleh app.js) */
 .bg-normal {
-    background-color: #e8f5e9 !important;
+    background-color: #ecfdf5 !important;
+    border-color: #a7f3d0 !important;
 }
 
 .bg-panas {
-    background-color: #ffebee !important;
+    background-color: #fef2f2 !important;
+    border-color: #fecaca !important;
+    animation: shake 0.6s ease 1;
 }
 
-/* Wadah Grafik dan Tabel */
-.chart-container,
-.table-container {
-    margin-bottom: 30px;
+/* ---------- Panel grafik & tabel ---------- */
+.panel {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.panel-title {
+    margin: 0 0 15px;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+/* Tinggi grafik dibatasi supaya tidak kepanjangan */
+.chart-wrapper {
+    position: relative;
+    height: 320px;
+}
+
+/* ---------- Tabel ---------- */
+.table-scroll {
+    overflow-x: auto;
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9rem;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--border);
 }
 
-table,
 th,
 td {
-    border: 1px solid #ddd;
-}
-
-th,
-td {
-    padding: 10px;
+    padding: 12px 14px;
     text-align: center;
+    border-bottom: 1px solid var(--border);
 }
 
 th {
-    background-color: #f8f9fa;
+    background: linear-gradient(90deg, var(--primary), #34d399);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+tbody tr {
+    transition: background 0.2s;
+}
+
+tbody tr:hover {
+    background: #ecfdf5;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-top: 10px;
+}
+
+/* ---------- Animasi ---------- */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+    .container {
+        padding: 18px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .chart-wrapper {
+        height: 260px;
+    }
 }

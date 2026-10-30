@@ -5,59 +5,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Monitoring IoT</title>
-    <!-- Menghubungkan ke file CSS -->
+
+    <!-- Font modern -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
-    <!-- Memuat Chart.js dari CDN untuk grafik -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <h1>Monitoring Greenhouse</h1>
+
+        <header class="header">
+            <div class="logo">🌿</div>
+            <h1>Monitoring Greenhouse</h1>
+            <p class="subtitle">Pantau suhu &amp; kelembapan secara real-time</p>
+        </header>
 
         <div class="status-bar">
-            Status: <span id="device-status" class="offline">Offline</span> |
+            Status: <span id="device-status" class="offline">Offline</span>
+            <span class="divider">|</span>
             Terakhir update: <span id="last-update">-</span>
         </div>
 
         <div class="cards">
             <!-- Kartu Suhu -->
-            <div class="card" id="card-suhu">
+            <div class="card card-suhu" id="card-suhu">
+                <div class="card-icon">🌡️</div>
                 <h3>Suhu</h3>
                 <p class="value"><span id="suhu-val">0</span> °C</p>
             </div>
+
             <!-- Kartu Kelembapan -->
-            <div class="card" id="card-kelembapan">
+            <div class="card card-kelembapan" id="card-kelembapan">
+                <div class="card-icon">💧</div>
                 <h3>Kelembapan</h3>
                 <p class="value"><span id="kelembapan-val">0</span> %</p>
             </div>
         </div>
 
-        <!-- Wadah Grafik -->
-        <div class="chart-container">
-            <canvas id="myChart"></canvas>
+        <!-- Grafik -->
+        <div class="panel chart-container">
+            <h3 class="panel-title">📈 Grafik Real-time</h3>
+            <div class="chart-wrapper">
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
 
-        <!-- Tabel Riwayat Data -->
-        <div class="table-container">
-            <h3>Riwayat 10 Data Terakhir</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Waktu</th>
-                        <th>Device</th>
-                        <th>Suhu (°C)</th>
-                        <th>Kelembapan (%)</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                    <!-- Data tabel akan dimasukkan via JavaScript -->
-                </tbody>
-            </table>
+        <!-- Tabel -->
+        <div class="panel table-container">
+            <h3 class="panel-title">🕒 Riwayat 10 Data Terakhir</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Waktu</th>
+                            <th>Device</th>
+                            <th>Suhu (°C)</th>
+                            <th>Kelembapan (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Diisi via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        <footer class="footer">IoT Greenhouse Dashboard © 2026</footer>
     </div>
 
-    <!-- Menghubungkan ke file JavaScript -->
     <script src="app.js"></script>
 </body>
 
